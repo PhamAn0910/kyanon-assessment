@@ -6,7 +6,7 @@ def filter_leave_requests(input_file, output_file):
     Đọc file CSV, lọc các email xin nghỉ phép và xuất ra file JSON.
     """
     leave_requests = []
-    keyword = "leave" # Từ khóa để lọc [cite: 30]
+    keyword = "leave"
 
     try:
         with open(input_file, mode='r', encoding='utf-8') as infile:
@@ -16,9 +16,9 @@ def filter_leave_requests(input_file, output_file):
                 subject_lower = row.get('subject', '').lower()
                 body_lower = row.get('body', '').lower()
                 
-                # Lọc email dựa trên từ khóa [cite: 30]
+                # Lọc email dựa trên từ khóa
                 if keyword in subject_lower or keyword in body_lower:
-                    # Tạo đối tượng mới theo cấu trúc yêu cầu [cite: 32-37]
+                    # Tạo đối tượng mới theo cấu trúc yêu cầu
                     request_data = {
                         "id": int(row['id']), 
                         "sender": row['sender'],
@@ -28,8 +28,7 @@ def filter_leave_requests(input_file, output_file):
         
         # Ghi kết quả ra file JSON
         with open(output_file, mode='w', encoding='utf-8') as outfile:
-            # indent=2 giúp file JSON đẹp và dễ đọc hơn
-            json.dump(leave_requests, outfile, indent=2) 
+            json.dump(leave_requests, outfile, indent=2) # indent=2 giúp file JSON đẹp và dễ đọc hơn
             
         print(f"✅ Xử lý thành công! Kết quả đã được lưu tại: {output_file}")
 
